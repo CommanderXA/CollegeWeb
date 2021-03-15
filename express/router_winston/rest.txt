@@ -1,0 +1,907 @@
+
+# 1 ======================================================
+Request
+    URL: /api/signup
+    Method: POST
+    Header: Authorization: Basic {email password}
+    Body: {
+        "id": "id",
+        "fio": "someText", 
+        "birthday": "someText",
+        "gender": "someText",
+        "role": "someText", 
+        "email": "someText",
+        "createdAt": "someDate",
+        "deletedAt": "someDate",
+    }
+Response
+    Header: Response code: 201
+    Body: {
+        "id": "id",
+        "fio": "someText", 
+        "birthday": "someText",
+        "gender": "someText",
+        "role": "someText", 
+        "email": "someText",
+        "createdAt": "someDate",
+        "deletedAt": "someDate",
+        "token": "AUTHORIZATION_TOKEN"
+    }
+    If user one field is ont valid
+        Header: Response code: 401
+        Body: {"message": "Invalid field"}
+
+
+# 2 ======================================================
+
+Request
+    URL: /api/login
+    Method: POST
+    Body:
+Response
+    If success
+        Header: Response code: 200
+        Body: {
+            "fio": "someText", 
+            "role": "someText", 
+            "email": "someText",
+            "token": "AUTHORIZATION_TOKEN"
+        }
+    If user email or password not correct
+        Header: Response code: 401
+        Body: {"message": "Invalid login"}
+
+
+# 3 ======================================================
+
+Request
+    URL: /api/logout
+    Method: GET
+    Body: {"token": "AUTHORIZATION_TOKEN"}
+Response
+    If success
+        Header: Response code: 200
+        Body: {
+            "message": "Logged out successfully"
+        }
+    If server error
+        Header: Response code: 500
+        Body: {"message": "Server Error"}
+
+
+# 4 ======================================================
+
+# 4.1 --------------------------
+Request
+    URL: /api/users/{id}
+    Method: GET
+    Body:
+Response
+    If success
+        Header: Response code: 200
+        Body: {
+            "id": "1",
+            "fio": "someText", 
+            "birthday": "someText",
+            "gender": "someText",
+            "role": "someText", 
+            "email": "someText",
+            "createdAt": "someDate",
+            "deletedAt": "null",
+            "token": "AUTHORIZATION_TOKEN"
+        }
+
+    If user is not logged in or token is invalid
+        Header: Response code: 401
+        Body: {"message": "User not logged in"}
+
+    If user id value is not id
+        Header: Response code: 401
+        Body: {"message": "Permission Denied"}
+
+#4.2 --------------------------
+Request
+    URL: /api/users/{id}
+    Method: PUT
+    Body: {
+        "id": "1",
+        "fio": "someText", 
+        "birthday": "someText",
+        "gender": "someText",
+        "role": "someText", 
+        "email": "someText",
+        "createdAt": "someDate",
+        "deletedAt": "null",
+        "token": "AUTHORIZATION_TOKEN"
+    }
+Response
+    If success
+        Header: Response code: 200
+        Body: {
+            "id": "1",
+            "fio": "someText", 
+            "birthday": "someText",
+            "gender": "someText",
+            "role": "someText", 
+            "email": "someText",
+            "createdAt": "someDate",
+            "deletedAt": "null",
+            "token": "AUTHORIZATION_TOKEN"
+        }
+
+    If user is not logged in or token is invalid
+        Header: Response code: 401
+        Body: {"message": "User not logged in"}
+
+    If user id value is not id
+        Header: Response code: 401
+        Body: {"message": "Permission Denied"}
+
+#4.3 --------------------------
+Request
+    URL: /api/users
+    Method: GET
+    Body:
+Response
+    If success
+        Header: Response code: 200
+        Body: {
+            [
+                {
+                    "id": "1",
+                    "fio": "someText", 
+                    "birthday": "someText",
+                    "gender": "someText",
+                    "role": "someText", 
+                    "email": "someText",
+                    "createdAt": "someDate",
+                    "deletedAt": "null",
+                },
+                {
+                    "id": "1",
+                    "fio": "someText", 
+                    "birthday": "someText",
+                    "gender": "someText",
+                    "role": "someText", 
+                    "email": "someText",
+                    "createdAt": "someDate",
+                    "deletedAt": "null",
+                },
+            ],
+            "token": "AUTHORIZATION_TOKEN"
+        }
+    If role value is user
+        Header: Response code: 401
+        Body: {"message": "Permission Denied"}
+
+#4.4 --------------------------
+Request
+    URL: /api/users/{id}
+    Method: GET
+    Body:
+Response
+    If success
+        Header: Response code: 200
+        Body: {
+            "id": "1",
+            "fio": "someText", 
+            "birthday": "someText",
+            "gender": "someText",
+            "role": "someText", 
+            "email": "someText",
+            "createdAt": "someDate",
+            "deletedAt": "null",
+            "token": "AUTHORIZATION_TOKEN"
+        }
+    If user role value is user
+        Header: Response code: 401
+        Body: {"message": "Permission Denied"}
+
+#4.5 --------------------------
+Request
+    URL: /api/users/{id}
+    Method: DELETE
+    Body: {"token": "AUTHORIZATION_TOKEN"}
+Response
+    If success
+        Header: Response code: 200
+        Body: {
+            "message": "Successfully deleted"
+        }
+    If user role value is user
+        Header: Response code: 401
+        Body: {"message": "Permission Denied"}
+
+# 5 ======================================================
+
+# 5.1 --------------------------
+###
+Request
+    URL: /api/films/
+    Method: POST
+    Header:
+    Body: {
+        "id": "1",
+        "name": "someText", 
+        "country": "someText",
+        "duration": "someText",
+        "yearOfIssue": "someText", 
+        "age": "someText",
+        "categories": "[]",
+        "linkImg": "someText",
+        "linkKinopoisk": "someText",
+        "linkVideo": "someText",
+        "createdAt": "someDate",
+        "deletedAt": "null",
+    }
+Response
+    If success
+        Header: Response code: 201
+        Body: {
+            "id": "1",
+            "name": "someText", 
+            "country": "someText",
+            "duration": "someText",
+            "yearOfIssue": "someText", 
+            "age": "someText",
+            "categories": "[]",
+            "linkImg": "someText",
+            "linkKinopoisk": "someText",
+            "linkVideo": "someText",
+            "createdAt": "someDate",
+            "deletedAt": "null",
+        }
+    If user is not logged in or token is invalid
+        Header: Response code: 401
+        Body: {"message": "User not logged in"}
+
+# 5.2 --------------------------
+Request
+    URL: /api/films/{id}
+    Method: PUT
+    Header:
+    Body: {
+        "id": "1",
+        "name": "someText", 
+        "country": "someText",
+        "duration": "someText",
+        "yearOfIssue": "someText", 
+        "age": "someText",
+        "categories": "[]",
+        "linkImg": "someText",
+        "linkKinopoisk": "someText",
+        "linkVideo": "someText",
+        "createdAt": "someDate",
+        "deletedAt": "null",
+    }
+Response
+    If success
+        Header: Response code: 200
+        Body: {
+            "id": "1",
+            "name": "someText", 
+            "country": "someText",
+            "duration": "someText",
+            "yearOfIssue": "someText", 
+            "age": "someText",
+            "categories": "[]",
+            "linkImg": "someText",
+            "linkKinopoisk": "someText",
+            "linkVideo": "someText",
+            "createdAt": "someDate",
+            "deletedAt": "null",
+        }
+    If user is not logged in or token is invalid
+        Header: Response code: 401
+        Body: {"message": "User not logged in"}
+    
+    If film id value is not id
+        Header: Response code: 401
+        Body: {"message": "Permission Denied}
+
+# 5.3 --------------------------
+Request
+    URL: /api/films/{id}
+    Method: DELETE
+    Header:
+    Body: {
+        "id": "1",
+        "token": "AUTHORIZATION_TOKEN"
+    }
+Response
+    If success
+        Header: Response code: 200
+        Body: {
+            "message": "Successfully Deleted"
+        }
+
+    If user is not logged in or token is invalid
+        Header: Response code: 401
+        Body: {"message": "User not logged in"}
+
+    If user value is user
+        Header: Response code: 401
+        Body: {"message": "Permission Denied"}
+
+# 5.4 --------------------------
+Request
+    URL: /api/films/
+    Method: GET
+    Header:
+    Body: {
+        "token": "AUTHORIZATION_TOKEN"
+    }
+Response
+    If success
+        Header: Response code: 200
+        Body: {
+            [
+                {
+                    "id": "1",
+                    "name": "someText", 
+                    "country": "someText",
+                    "duration": "someText",
+                    "yearOfIssue": "someText", 
+                    "age": "someText",
+                    "categories": "[]",
+                    "linkImg": "someText",
+                    "linkKinopoisk": "someText",
+                    "linkVideo": "someText",
+                    "createdAt": "someDate",
+                    "deletedAt": "null",
+                },
+                {
+                    "id": "2",
+                    "name": "someText", 
+                    "country": "someText",
+                    "duration": "someText",
+                    "yearOfIssue": "someText", 
+                    "age": "someText",
+                    "categories": "[]",
+                    "linkImg": "someText",
+                    "linkKinopoisk": "someText",
+                    "linkVideo": "someText",
+                    "createdAt": "someDate",
+                    "deletedAt": "null",
+                },
+            ]
+        }
+    If user is not logged in or token is invalid
+        Header: Response code: 401
+        Body: {"message": "User not logged in"}
+
+# 5.5 --------------------------
+Request
+    URL: /api/films/{id}
+    Method: GET
+    Header:
+    Body: {
+        "id": "1",
+        "token": "AUTHORIZATION_TOKEN"
+    }
+Response
+    If success
+        Header: Response code: 200
+        Body: {
+            {
+                "id": "1",
+                "name": "someText", 
+                "country": "someText",
+                "duration": "someText",
+                "yearOfIssue": "someText", 
+                "age": "someText",
+                "categories": "[]",
+                "linkImg": "someText",
+                "linkKinopoisk": "someText",
+                "linkVideo": "someText",
+                "createdAt": "someDate",
+                "deletedAt": "null",
+            }
+        }
+    If user is not logged in or token is invalid
+        Header: Response code: 401
+        Body: {"message": "User not logged in"}
+
+# 5.6 --------------------------
+Request
+    URL: /api/films/{film-hash}/reviews
+    Method: GET
+    Header:
+    Body: -
+Response
+    If success
+        Header: Response code: 200
+        Body: [{
+
+        "id":"ca80c294-7f46-11eb-9439-0242ac130002",
+        "fio":"someText",
+        "message":"someText",
+        "createdAt":"1615123031303"}, ...]
+
+    If user is not logged in or token is invalid
+        Header: Response code: 401
+        Body: {"message": "User not logged in"}
+
+    If film-hash is invalid
+        Header: Response code: 401
+        Body: {"message": "Film not found"}
+
+# 5.7 --------------------------
+Request
+    URL: /api/films/{film-hash}/rating
+    Method: GET
+    Header:
+    Body: -
+Response
+    If success
+        Header: Response code: 200
+        Body: [
+            {
+                "id":"ca80c294-7f46-11eb-9439-0242ac130002",
+                "film":"id",
+                "user":"id",
+                "ball":"5",
+                "createdAt":"1615123031303"
+            },
+        ...]
+
+    If user is not logged in or token is invalid
+        Header: Response code: 401
+        Body: {"message": "User not logged in"}
+        
+    If film-hash is invalid
+        Header: Response code: 401
+        Body: {"message": "Film not found"}
+
+    If user value is user
+        Header: Response code: 401
+        Body: {"message": "Permission Denied"}
+
+# 6 ======================================================
+
+# 6.1 --------------------------
+Request
+    URL: /api/categories/
+    Method: GET
+    Header:
+    Body: {
+        "token": "AUTHORIZATION_TOKEN"
+    }
+Response
+    If success
+        Header: Response code: 200
+        Body: {
+            [
+                {
+                    "id": "1",
+                    "name": "someText", 
+                    "parent": "1",
+                    "deletedAt": "null",
+                },
+                {
+                    "id": "2",
+                    "name": "someText", 
+                    "parent": "2",
+                    "deletedAt": "null",
+                },
+            ],
+        }
+    If user is not logged in or token is invalid
+        Header: Response code: 401
+        Body: {"message": "User not logged in"}
+
+    If user value is user
+        Header: Response code: 401
+        Body: {"message": "Permission Denied"}
+
+
+# 6.2 --------------------------
+Request
+    URL: /api/categories/
+    Method: POST
+    Header:
+    Body: {
+        "id": "1",
+        "name": "someText", 
+        "paernt": "1",
+        "deletedAt": "null",
+        "token": "AUTHORIZATION_TOKEN"
+    }
+Response
+    If success
+        Header: Response code: 201
+        Body: {
+            {
+                "id": "1",
+                "name": "someText", 
+                "parent": "1",
+                "deletedAt": "null"
+            }
+        }
+    If user is not logged in or token is invalid
+        Header: Response code: 401
+        Body: {"message": "User not logged in"}
+
+    If user value is user
+        Header: Response code: 401
+        Body: {"message": "Permission Denied"}
+
+# 6.3 --------------------------
+Request
+    URL: /api/categories/{id}
+    Method: PUT
+    Header:
+    Body: {
+        "id": "1",
+        "name": "someText", 
+        "paernt": "1",
+        "deletedAt": "null",
+        "token": "AUTHORIZATION_TOKEN"
+    }
+Response
+    If success
+        Header: Response code: 200
+        Body: {
+            {
+                "id": "1",
+                "name": "someText", 
+                "parent": "1",
+                "deletedAt": "null"
+            }
+        }
+    If user is not logged in or token is invalid
+        Header: Response code: 401
+        Body: {"message": "User not logged in"}
+
+    If user value is user
+        Header: Response code: 401
+        Body: {"message": "Permission Denied"}
+
+# 6.4 --------------------------
+Request
+    URL: /api/categories/{id}
+    Method: DELETE 
+    Header:
+    Body: {
+        "id": "1",
+        "token": "AUTHORIZATION_TOKEN"
+    }
+Response
+    If success
+        Header: Response code: 200
+        Body: {
+            {
+                "message": "Successfully Deleted"
+            }
+        }
+    If user is not logged in or token is invalid
+        Header: Response code: 401
+        Body: {"message": "User not logged in"}
+
+    If user value is user
+        Header: Response code: 401
+        Body: {"message": "Permission Denied"}
+
+
+# 7 ======================================================
+
+Request
+    URL: /api/countries/
+    Method: GET
+    Header:
+    Body: {
+        "token": "AUTHORIZATION_TOKEN"
+    }
+Response
+    If success
+        Header: Response code: 200
+        Body: {
+            [
+                {
+                    "id": "1",
+                    "name": "someText"
+                },
+                {
+                    "id": "2",
+                    "name": "someText"
+                },
+            ],
+        }
+    If user is not logged in or token is invalid
+        Header: Response code: 401
+        Body: {"message": "User not logged in"}
+
+    If user value is user
+        Header: Response code: 401
+        Body: {"message": "Permission Denied"}
+
+
+# 8 ======================================================
+
+# 8.1 --------------------------
+Request
+    URL: /api/reviews/
+    Method: POST
+    Header:
+    Body: {
+        "id": "1",
+        "film": "someText", 
+        "user": "1",
+        "isApproved": "1",
+        "createdAt": "someDate",
+        "deletedAt": "null",
+        "token": "AUTHORIZATION_TOKEN"
+    }
+Response
+    If success
+        Header: Response code: 201
+        Body: {
+            {
+                "id": "1",
+                "film": "someText", 
+                "user": "1",
+                "isApproved": "1",
+                "deletedAt": "null",
+            }
+        }
+    If user is not logged in or token is invalid
+        Header: Response code: 401
+        Body: {"message": "User not logged in"}
+
+# 8.2 --------------------------
+Request
+    URL: /api/reviews/{id}
+    Method: PUT
+    Header:
+    Body: {
+        "id": "1",
+        "film": "someText", 
+        "user": "1",
+        "isApproved": "1",
+        "createdAt": "someDate",
+        "deletedAt": "null",
+        "token": "AUTHORIZATION_TOKEN"
+    }
+Response
+    If success
+        Header: Response code: 200
+        Body: {
+            {
+                "id": "1",
+                "film": "someText", 
+                "user": "1",
+                "isApproved": "1",
+                "deletedAt": "null",
+            }
+        }
+    If user is not logged in or token is invalid
+        Header: Response code: 401
+        Body: {"message": "User not logged in"}
+
+    If user id is invalid
+        Header: Response code: 401
+        Body: {"message": "Permission Denied"}
+
+# 8.3 --------------------------
+Request
+    URL: /api/reviews/{id}
+    Method: DELETE
+    Header:
+    Body: {
+        "token": "AUTHORIZATION_TOKEN"
+    }
+Response
+    If success
+        Header: Response code: 200
+        Body: {
+            {
+                "message": "Successfully Deleted"
+            }
+        }
+    If user is not logged in or token is invalid
+        Header: Response code: 401
+        Body: {"message": "User not logged in"}
+    
+    If user id is invalid 
+        Header: Response code: 401
+        Body: {"message": "Permission Denied"}
+
+
+# 8.4 --------------------------
+Request
+    URL: /api/reviews/
+    Method: GET
+    Header:
+    Body: {
+        "token": "AUTHORIZATION_TOKEN"
+    }
+Response
+    If success
+        Header: Response code: 200
+        Body: {
+            [
+                {
+                    "id": "1",
+                    "film": "someText", 
+                    "user": "1",
+                    "isApproved": "1",
+                    "deletedAt": "null"
+                },
+                {
+                    "id": "2",
+                    "film": "someText", 
+                    "user": "1",
+                    "isApproved": "1",
+                    "deletedAt": "null",
+                },
+            ],
+        }
+    If user is not logged in or token is invalid
+        Header: Response code: 401
+        Body: {"message": "User not logged in"}
+
+    If user value is user
+        Header: Response code: 401
+        Body: {"message": "Permission Denied"}
+
+# 8.5 --------------------------
+Request
+    URL: /api/reviews/{id}
+    Method: PATCH
+    Header:
+    Body: {
+        "id": "1",
+        "isApproved": "1",
+        "token": "AUTHORIZATION_TOKEN"
+    }
+Response
+    If success
+        Header: Response code: 200
+        Body: {
+            {
+                "id": "1",
+                "film": "someText", 
+                "user": "1",
+                "isApproved": "1",
+                "deletedAt": "null",
+            }
+        }
+    If user is not logged in or token is invalid
+        Header: Response code: 401
+        Body: {"message": "User not logged in"}
+
+    If user id is invalid
+        Header: Response code: 401
+        Body: {"message": "Permission Denied"}
+
+
+# 9 ======================================================
+
+# 9.1 --------------------------
+Request
+    URL: /api/films/{id}/rating
+    Method: POST
+    Header:
+    Body: {
+        "id":"ca80c294-7f46-11eb-9439-0242ac130002",
+        "film":"id",
+        "user":"id",
+        "ball":"5",
+        "createdAt":"1615123031303",
+        "token": "AUTHORIZATION_TOKEN"
+    }
+Response
+    If success
+        Header: Response code: 201
+        Body: {
+            {
+                "id":"ca80c294-7f46-11eb-9439-0242ac130002",
+                "film":"1",
+                "user":"1",
+                "ball":"5",
+                "createdAt":"1615123031303"
+            }
+        }
+    If user is not logged in or token is invalid
+        Header: Response code: 401
+        Body: {"message": "User not logged in"}
+
+# 9.2 --------------------------
+Request
+    URL: /api/films/{id}/rating{id}
+    Method: PUT
+    Header:
+    Body: {
+        "id":"ca80c294-7f46-11eb-9439-0242ac130002",
+        "film":"id",
+        "user":"id",
+        "ball":"5",
+        "createdAt":"1615123031303",
+        "token": "AUTHORIZATION_TOKEN"
+    }
+Response
+    If success
+        Header: Response code: 200
+        Body: {
+            {
+                "id":"ca80c294-7f46-11eb-9439-0242ac130002",
+                "film":"1",
+                "user":"1",
+                "ball":"5",
+                "createdAt":"1615123031303"
+            }
+        }
+    If user is not logged in or token is invalid
+        Header: Response code: 401
+        Body: {"message": "User not logged in"}
+    
+    If user id is invalid
+        Header: Response code: 401
+        Body: {"message": "Access Denied"}
+
+# 9.3 --------------------------
+Request
+    URL: /api/films/{id}/rating{id}
+    Method: DELETE
+    Header:
+    Body: {
+        "token": "AUTHORIZATION_TOKEN"
+    }
+Response
+    If success
+        Header: Response code: 200
+        Body: {
+            {
+                "message": "Deleted Successfully"
+            }
+        }
+    If user is not logged in or token is invalid
+        Header: Response code: 401
+        Body: {"message": "User not logged in"}
+    
+    If user id is invalid
+        Header: Response code: 401
+        Body: {"message": "Access Denied"}
+
+# 9.4 --------------------------
+Request
+    URL: /api/films/{id}/rating
+    Method: GET
+    Header:
+    Body: {
+        "id":"ca80c294-7f46-11eb-9439-0242ac130002",
+        "film":"id",
+        "user":"id",
+        "ball":"5",
+        "createdAt":"1615123031303",
+        "token": "AUTHORIZATION_TOKEN"
+    }
+Response
+    If success
+        Header: Response code: 200
+        Body: {
+            [
+                {
+                    "id":"ca80c294-7f46-11eb-9439-0242ac130002",
+                    "film":"1",
+                    "user":"1",
+                    "ball":"5",
+                    "createdAt":"1615123031303"
+                },
+                {
+                    "id":"ca80c294-7f46-11eb-9439-0242ac130002",
+                    "film":"1",
+                    "user":"1",
+                    "ball":"5",
+                    "createdAt":"1615123031303"
+                }
+            ]
+        }
+
+    If user is not logged in or token is invalid
+        Header: Response code: 401
+        Body: {"message": "User not logged in"}
+
+    If user value is user
+        Header: Response code: 401
+        Body: {"message": "Access Denied"}
