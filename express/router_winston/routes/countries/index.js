@@ -1,7 +1,8 @@
 const router = require('express').Router({mergeParams: true});
 let logger = require("../../logger/logger").logger;
+let auth = require("../../ensureAuth");
 
-router.get('/', (req, res) => {
+router.get('/', auth, (req, res) => {
     let result = [
         {
             "id": "1",

@@ -22,12 +22,15 @@ router.use('/signup', (req, res) => {
 })
 
 router.use('/login', (req, res) => {
-    res.json({
-        "fio": "someText", 
-        "role": "someText", 
-        "email": "someText",
-        "token": "AUTHORIZATION_TOKEN"
-    })
+    user = {
+        fio: "someText", 
+        role: "someText", 
+        email: "email@e.e",
+        token: "AUTHORIZATION_TOKEN"
+    };
+    req.session.email = user.email;
+    console.log(req.session);
+    res.send("Logged in");
 })
 
 router.use('/user', userRoute);

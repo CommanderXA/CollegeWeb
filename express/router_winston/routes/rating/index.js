@@ -1,7 +1,8 @@
 let logger = require("../../logger/logger").logger;
+let auth = require("../../ensureAuth");
 
 module.exports = function(router) {
-    router.get("/", (req, res) => {
+    router.get("/", auth, (req, res) => {
         result = [
             {
                 "id":"ca80c294-7f46-11eb-9439-0242ac130002",
@@ -22,7 +23,7 @@ module.exports = function(router) {
         logger.debug((req.method, Date(), result));
     });
 
-    router.post("/", (req, res) => {
+    router.post("/", auth, (req, res) => {
         result = {
             "id":"ca80c294-7f46-11eb-9439-0242ac130002",
             "film":"id",
@@ -34,7 +35,7 @@ module.exports = function(router) {
         logger.debug((req.method, Date(), result));
     });
 
-    router.get("/:id", (req, res) => {
+    router.get("/:id", auth, (req, res) => {
         result = {
             "id":"ca80c294-7f46-11eb-9439-0242ac130002",
             "film":"id",
@@ -46,7 +47,7 @@ module.exports = function(router) {
         logger.debug((req.method, Date(), result));
     });
 
-    router.put("/:id", (req, res) => {
+    router.put("/:id", auth, (req, res) => {
         result = {
             "id":"ca80c294-7f46-11eb-9439-0242ac130002",
             "film":"id",
@@ -58,7 +59,7 @@ module.exports = function(router) {
         logger.debug((req.method, Date(), result));
     });
 
-    router.patch("/:id", (req, res) => {
+    router.patch("/:id", auth, (req, res) => {
         result = {
             "id":"ca80c294-7f46-11eb-9439-0242ac130002",
             "film":"id",
@@ -70,7 +71,7 @@ module.exports = function(router) {
         logger.debug((req.method, Date(), result));
     });
 
-    router.delete("/:id", (req, res) => {
+    router.delete("/:id", auth, (req, res) => {
         result = {
             "message": "Successfully deleted"
         };

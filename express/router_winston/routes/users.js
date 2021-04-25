@@ -1,24 +1,25 @@
-const router = require('express').Router({mergeParams: true});
+const router = require('express').Router({ mergeParams: true });
 let logger = require("../logger/logger").logger;
+let auth = require("../ensureAuth");
 
-router.get('/', (req, res) => {
+router.get('/', auth, (req, res) => {
     let result = [
         {
             "id": "1",
-            "fio": "someText", 
+            "fio": "someText",
             "birthday": "someText",
             "gender": "someText",
-            "role": "someText", 
+            "role": "someText",
             "email": "someText",
             "createdAt": "someDate",
             "deletedAt": "null",
         },
         {
             "id": "1",
-            "fio": "someText", 
+            "fio": "someText",
             "birthday": "someText",
             "gender": "someText",
-            "role": "someText", 
+            "role": "someText",
             "email": "someText",
             "createdAt": "someDate",
             "deletedAt": "null",
@@ -26,15 +27,16 @@ router.get('/', (req, res) => {
     ];
     res.json(result);
     logger.debug((req.method, Date(), result));
+
 });
 
-router.get('/:id', (req, res) => {
+router.get('/:id', auth, (req, res) => {
     result = {
         "id": "1",
-        "fio": "someText", 
+        "fio": "someText",
         "birthday": "someText",
         "gender": "someText",
-        "role": "someText", 
+        "role": "someText",
         "email": "someText",
         "createdAt": "someDate",
         "deletedAt": "null",
@@ -44,13 +46,13 @@ router.get('/:id', (req, res) => {
     logger.debug((req.method, Date(), result));
 });
 
-router.put('/:id', (req, res) => {
+router.put('/:id', auth, (req, res) => {
     result = {
         "id": "1",
-        "fio": "someText", 
+        "fio": "someText",
         "birthday": "someText",
         "gender": "someText",
-        "role": "someText", 
+        "role": "someText",
         "email": "someText",
         "createdAt": "someDate",
         "deletedAt": "null",
@@ -60,7 +62,7 @@ router.put('/:id', (req, res) => {
     logger.debug((req.method, Date(), result));
 });
 
-router.delete('/:id', (req, res) => {
+router.delete('/:id', auth, (req, res) => {
     result = {
         "message": "Successfully Deleted"
     }

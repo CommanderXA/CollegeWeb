@@ -1,7 +1,8 @@
 const router = require('express').Router({mergeParams: true});
 let logger = require("../../logger/logger").logger;
+let auth = require("../../ensureAuth");
 
-router.get('/', (req, res) => {
+router.get('/', auth, (req, res) => {
     let result = [
         {
             "id": "1",
@@ -36,7 +37,7 @@ router.get('/', (req, res) => {
     logger.debug((req.method, Date(), result));
 });
 
-router.get('/:id', (req, res) => {
+router.get('/:id', auth, (req, res) => {
     result = {
         "id": "1",
         "name": "someText", 
@@ -55,7 +56,7 @@ router.get('/:id', (req, res) => {
     logger.debug((req.method, Date(), result));
 });
 
-router.post('/', (req, res) => {
+router.post('/', auth, (req, res) => {
     result = {
         "id": "1",
         "name": "someText", 
@@ -74,7 +75,7 @@ router.post('/', (req, res) => {
     logger.debug((req.method, Date(), result));
 });
 
-router.put('/:id', (req, res) => {
+router.put('/:id', auth, (req, res) => {
     result = {
         "id": "1",
         "name": "someText", 
@@ -93,7 +94,7 @@ router.put('/:id', (req, res) => {
     logger.debug((req.method, Date(), result));
 });
 
-router.delete('/:id', (req, res) => {
+router.delete('/:id', auth, (req, res) => {
     result = {
         "message": "Successfully Deleted"
     };
