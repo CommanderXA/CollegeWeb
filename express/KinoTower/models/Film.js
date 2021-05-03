@@ -29,6 +29,9 @@ const filmSchema = new mongoose.Schema({
     linkImg: {
         type: String,
     },
+    linkKinopoisk: {
+        type: String,
+    },
     linkVideo: {
         type: String,
     }

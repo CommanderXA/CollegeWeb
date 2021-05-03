@@ -1,103 +1,45 @@
 const router = require('express').Router({mergeParams: true});
 let logger = require("../../logger/logger").logger;
 let auth = require("../../ensureAuth");
+let access = require("../../ensureAccess");
 
-router.get('/', auth, (req, res) => {
-    let result = [
-        {
-            "id": "1",
-            "name": "someText", 
-            "country": "someText",
-            "duration": "someText",
-            "yearOfIssue": "someText", 
-            "age": "someText",
-            "categories": "[]",
-            "linkImg": "someText",
-            "linkKinopoisk": "someText",
-            "linkVideo": "someText",
-            "createdAt": "someDate",
-            "deletedAt": "null",
-        },
-        {
-            "id": "2",
-            "name": "someText", 
-            "country": "someText",
-            "duration": "someText",
-            "yearOfIssue": "someText", 
-            "age": "someText",
-            "categories": "[]",
-            "linkImg": "someText",
-            "linkKinopoisk": "someText",
-            "linkVideo": "someText",
-            "createdAt": "someDate",
-            "deletedAt": "null",
+// Models
+const Film = require('../../models/Film');
+
+router.get('/', auth, async (req, res) => {
+    result = await Film.find();
+    res.json(result)
+    logger.debug((req.method, Date(), result));
+});
+
+router.get('/:id', auth, async (req, res) => {
+    result = await Film.findById(req.params.id);
+    res.json(result)
+    logger.debug((req.method, Date(), result));
+});
+
+router.post('/', auth, access, async (req, res) => {
+    result = await Film.create(req.body);
+    res.json(result)
+    logger.debug((req.method, Date(), result));
+    logger.debug((req.method, Date(), result));
+});
+
+router.put('/:id', auth, access, async (req, res) => {
+    result = await Film.findByIdAndUpdate(req.params.id, req.body);
+    res.json(result);
+    logger.debug((req.method, Date(), result));
+});
+
+router.delete('/:id', auth, async (req, res) => {
+    result = await Film.findByIdAndDelete(req.params.id, function (err, docs) {
+        if (err){
+            console.log(err)
         }
-    ];
-    res.json(result);
-    logger.debug((req.method, Date(), result));
-});
-
-router.get('/:id', auth, (req, res) => {
-    result = {
-        "id": "1",
-        "name": "someText", 
-        "country": "someText",
-        "duration": "someText",
-        "yearOfIssue": "someText", 
-        "age": "someText",
-        "categories": "[]",
-        "linkImg": "someText",
-        "linkKinopoisk": "someText",
-        "linkVideo": "someText",
-        "createdAt": "someDate",
-        "deletedAt": "null",
-    };
-    res.json(result);
-    logger.debug((req.method, Date(), result));
-});
-
-router.post('/', auth, (req, res) => {
-    result = {
-        "id": "1",
-        "name": "someText", 
-        "country": "someText",
-        "duration": "someText",
-        "yearOfIssue": "someText", 
-        "age": "someText",
-        "categories": "[]",
-        "linkImg": "someText",
-        "linkKinopoisk": "someText",
-        "linkVideo": "someText",
-        "createdAt": "someDate",
-        "deletedAt": "null",
-    };
-    res.json(result);
-    logger.debug((req.method, Date(), result));
-});
-
-router.put('/:id', auth, (req, res) => {
-    result = {
-        "id": "1",
-        "name": "someText", 
-        "country": "someText",
-        "duration": "someText",
-        "yearOfIssue": "someText", 
-        "age": "someText",
-        "categories": "[]",
-        "linkImg": "someText",
-        "linkKinopoisk": "someText",
-        "linkVideo": "someText",
-        "createdAt": "someDate",
-        "deletedAt": "null",
-    };
-    res.json(result);
-    logger.debug((req.method, Date(), result));
-});
-
-router.delete('/:id', auth, (req, res) => {
-    result = {
-        "message": "Successfully Deleted"
-    };
+        else{
+            console.log("Deleted : ", docs);
+        }
+    });
     res.json(result);
     logger.debug((req.method, Date(), result));
 });

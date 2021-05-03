@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express();
+const bcrypt = require("bcrypt");
 
 // Importing Routes
 const categoryRoute = require('./categories/index');
@@ -7,31 +8,54 @@ const countryRoute = require('./countries/index');
 const filmRoute = require('./films/index');
 const userRoute = require('./users');
 
-router.use('/signup', (req, res) => {
-    res.json({
-        "id": "id",
-        "fio": "someText", 
-        "birthday": "someText",
-        "gender": "someText",
-        "role": "someText", 
-        "email": "someText",
-        "createdAt": "someDate",
-        "deletedAt": "someDate",
-        "token": "AUTHORIZATION_TOKEN"
-    })
-})
+// Importing Models
+const User = require("../models/User");
 
-router.use('/login', (req, res) => {
-    user = {
-        fio: "someText", 
-        role: "someText", 
-        email: "email@e.e",
-        token: "AUTHORIZATION_TOKEN"
-    };
-    req.session.email = user.email;
-    console.log(req.session);
-    res.send("Logged in");
-})
+router.post('/signup', async (req, res) => {
+    try {
+        const user = await User.create(req.body);
+        res.json(user);
+    } catch(e) {
+        res.json({ message: e });
+    }
+    console.log(req.body);
+});
+
+router.get('/login', async (req, res) => {
+    res.send("Log in");
+});
+
+router.post('/login', async (req, res) => {
+    const user = await User.findOne({email: req.body.email}, function(err, user) {
+        if (err) {
+            res.json({
+                status: 0,
+                message: err
+            });
+        }
+        if (!user) {
+            res.json({
+                status: 0,
+                msg: "not found"
+            });
+        }
+    });
+    if (user) {
+        result = bcrypt.compareSync(req.body.password, user.password);
+        if (result == true) {
+            req.session.email = req.body.email;
+            req.session.role = user.role;
+            req.session.id = user._id;
+        }
+    }
+    res.redirect("/user/" + user._id);
+});
+
+router.get('/logout', (req, res) => {
+    //req.session.email = ''
+    req.session.destroy()
+    res.redirect('login');
+});
 
 router.use('/user', userRoute);
 router.use('/films', filmRoute);

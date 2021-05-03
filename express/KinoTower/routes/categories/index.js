@@ -1,63 +1,44 @@
 const router = require('express').Router({mergeParams: true});
 let logger = require("../../logger/logger").logger;
 let auth = require("../../ensureAuth");
+let access = require("../../ensureAccess");
 
-router.get('/', auth, (req, res) => {
-    let result = [
-        {
-            "id": "1",
-            "name": "someText", 
-            "parent": "1",
-            "deletedAt": "null",
-        },
-        {
-            "id": "2",
-            "name": "someText", 
-            "parent": "2",
-            "deletedAt": "null",
+// Models
+const Category = require('../../models/Category');
+
+router.get('/', auth, access, async (req, res) => {
+    let result = await Category.find();
+    res.json(result);
+    logger.debug((req.method, Date(), result));
+});
+
+router.get('/:id', auth, access, async (req, res) => {
+    let result = await Category.findById(req.params.id);
+    res.json(result);
+    logger.debug((req.method, Date(), result));
+});
+
+router.post('/', auth, access, async (req, res) => {
+    let result = await Category.create(req.body);
+    res.json(result);
+    logger.debug((req.method, Date(), result));
+});
+
+router.put('/:id', auth, access, async (req, res) => {
+    let result = await Category.findByIdAndUpdate(req.params.id, req.body);
+    res.json(result);
+    logger.debug((req.method, Date(), result));
+});
+
+router.delete('/:id', auth, access, async (req, res) => {
+    let result = await Category.findByIdAndDelete(req.params.id, function (err, docs) {
+        if (err){
+            console.log(err)
         }
-    ];
-    res.json(result);
-    logger.debug((req.method, Date(), result));
-});
-
-router.get('/:id', auth, (req, res) => {
-    result = {
-        "id": "1",
-        "name": "someText", 
-        "parent": "1",
-        "deletedAt": "null"
-    };
-    res.json(result);
-    logger.debug((req.method, Date(), result));
-});
-
-router.post('/', auth, (req, res) => {
-    result = {
-        "id": "1",
-        "name": "someText", 
-        "parent": "1",
-        "deletedAt": "null"
-    };
-    res.json(result);
-    logger.debug((req.method, Date(), result));
-});
-
-router.put('/:id', auth, (req, res) => {
-    result = {
-        "id": "1",
-        "name": "someText", 
-        "parent": "1",
-        "deletedAt": "null"
-    };
-    res.json(result);
-    logger.debug((req.method, Date(), result));
-});
-
-router.delete('/:id', auth, (req, res) => {
-    result = {
-        "message": "Successfully Deleted"
-    }
+        else{
+            console.log("Deleted : ", docs);
+        }
+    });
     res.json(result)
     logger.debug((req.method, Date(), result));
 });

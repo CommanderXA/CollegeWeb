@@ -1,6 +1,8 @@
 const express = require('express');
 var session = require('express-session')
 const app = express();
+const bodyParser = require("body-parser");
+const mongoose = require("mongoose");
 
 // Session
 const sessionOptions = {
@@ -11,12 +13,21 @@ const sessionOptions = {
   saveUninitialized: false,
   cookie: {
     httpOnly: true,
-    maxAge: 15 * 60 * 1000,
+    maxAge: 30 * 24 * 60 * 60 * 1000,
     path: '/',
     secure: !true
   }
 };
+app.use(bodyParser.json());
 app.use(session(sessionOptions));
+
+//Set up default mongoose connection
+var mongoDB = 'mongodb://127.0.0.1/kinotower';
+mongoose.connect(mongoDB, {useNewUrlParser: true, useUnifiedTopology: true});
+
+//Get the default connection
+var db = mongoose.connection
+db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 // Routes
 const routes = require('./routes/index');

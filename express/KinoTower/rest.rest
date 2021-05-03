@@ -1,2 +1,85 @@
 GET http://localhost:8080/api/films/34/rating/1 HTTP/1.1
 content-type: application/json
+
+###
+POST http://localhost:8080/api/signup HTTP/1.1
+content-type: application/json
+
+{
+    "full_name": "John Johns",
+    "bitrhday": "2000-04-05",
+    "gender": "m",
+    "email": "jjohns@gmail.com",
+    "password": "1234567890",
+    "role": "admin"
+}
+
+###
+POST http://localhost:8080/api/signup HTTP/1.1
+content-type: application/json
+
+{
+    "full_name": "Johny Johnson",
+    "bitrhday": "2000-04-05",
+    "gender": "m",
+    "email": "jj@gmail.com",
+    "password": "1234567890",
+    "role": "user"
+}
+
+###
+POST http://localhost:8080/api/login HTTP/1.1
+content-type: application/json
+
+{
+    "email": "jjohns@gmail.com",
+    "password": "1234567890"
+}
+
+###
+POST http://localhost:8080/api/login HTTP/1.1
+content-type: application/json
+
+{
+    "email": "jj@gmail.com",
+    "password": "1234567890"
+}
+
+###
+GET http://localhost:8080/api/logout HTTP/1.1
+
+###
+GET http://localhost:8080/api/user/ HTTP/1.1
+
+###
+GET http://localhost:8080/api/user/609004d975fa9543bfdde4b5 HTTP/1.1
+
+POST http://localhost:8080/api/film HTTP/1.1
+content-type: application/json
+
+{
+    "name": "Iron Man",
+    "country": "",
+    "duration": "120",
+    "yearOfIssue": "2008",
+    "age": "12",
+    "categories": "",
+}
+
+###
+GET http://localhost:8080/api/countries HTTP/1.1
+
+###
+GET http://localhost:8080/api/categories HTTP/1.1
+
+###
+POST http://localhost:8080/api/categories/ HTTP/1.1
+content-type: application/json
+
+{
+    "name": "Action"
+}
+
+###
+DELETE http://localhost:8080/api/categories/60902ab21efe2e1322bf9298 HTTP/1.1
+content-type: application/json

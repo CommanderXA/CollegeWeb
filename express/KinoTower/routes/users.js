@@ -1,72 +1,41 @@
 const router = require('express').Router({ mergeParams: true });
 let logger = require("../logger/logger").logger;
 let auth = require("../ensureAuth");
+let access = require("../ensureAccess");
 
-router.get('/', auth, (req, res) => {
-    let result = [
-        {
-            "id": "1",
-            "fio": "someText",
-            "birthday": "someText",
-            "gender": "someText",
-            "role": "someText",
-            "email": "someText",
-            "createdAt": "someDate",
-            "deletedAt": "null",
-        },
-        {
-            "id": "1",
-            "fio": "someText",
-            "birthday": "someText",
-            "gender": "someText",
-            "role": "someText",
-            "email": "someText",
-            "createdAt": "someDate",
-            "deletedAt": "null",
-        },
-    ];
+// Importing Models
+const User = require("../models/User");
+
+router.get('/', auth, access, async (req, res) => {
+    let result = await User.find();
     res.json(result);
     logger.debug((req.method, Date(), result));
 
 });
 
-router.get('/:id', auth, (req, res) => {
-    result = {
-        "id": "1",
-        "fio": "someText",
-        "birthday": "someText",
-        "gender": "someText",
-        "role": "someText",
-        "email": "someText",
-        "createdAt": "someDate",
-        "deletedAt": "null",
-        "token": "AUTHORIZATION_TOKEN"
+router.get('/:id', auth, async (req, res) => {
+    if (req.session.role == "admin" || req.params.id == req.session.id) {
+        result = await User.findById(req.params.id);
+        res.json(result)
+    } else {
+        res.send("Access Denied");
     }
-    res.json(result)
     logger.debug((req.method, Date(), result));
 });
 
-router.put('/:id', auth, (req, res) => {
-    result = {
-        "id": "1",
-        "fio": "someText",
-        "birthday": "someText",
-        "gender": "someText",
-        "role": "someText",
-        "email": "someText",
-        "createdAt": "someDate",
-        "deletedAt": "null",
-        "token": "AUTHORIZATION_TOKEN"
+router.put('/:id', auth, async (req, res) => {
+    if (req.params.id == req.session.id) {
+        user = await User.findByIdAndUpdate(req.params.id, req.body);
+        res.json(user)
+    } else {
+        res.send("Access Denied");
     }
-    res.json(result)
     logger.debug((req.method, Date(), result));
 });
 
-router.delete('/:id', auth, (req, res) => {
-    result = {
-        "message": "Successfully Deleted"
-    }
-    res.json(result)
+router.delete('/:id', auth, access, async (req, res) => {
+    user = await User.findByIdAndDelete(req.params.id);
+    res.send("Deleted");
     logger.debug((req.method, Date(), result));
 });
 
