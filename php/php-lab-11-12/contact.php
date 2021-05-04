@@ -21,6 +21,19 @@
     <h1>Обратная связь</h1>
     <!-- Заголовок -->
     <!-- Область основного контента -->
+    <?php
+      $size = ini_get('post_max_size');
+      echo $size;
+      switch(substr($size, -1)) {
+        // The 'G' modifier is available
+        case 'K':
+            $size *= 1024;
+        case 'M':
+            $size *= pow(1024, 2);
+        case 'G':
+            $size *= pow(1024, 3);
+    }
+    ?>
     <h3>Адрес</h3>
     <p>123456 Москва, Малый Американский переулок 21</p>
     <h3>Задайте вопрос</h3>

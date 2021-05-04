@@ -60,18 +60,21 @@
     <!-- Навигация -->
     <h2>Навигация по сайту</h2>
     <!-- Меню -->
-    <ul>
-      <li><a href='index.php'>Домой</a>
-      </li>
-      <li><a href='about.php'>О нас</a>
-      </li>
-      <li><a href='contact.php'>Контакты</a>
-      </li>
-      <li><a href='table.php'>Таблица умножения</a>
-      </li>
-      <li><a href='calc.php'>Калькулятор</a>
-      </li>
-    </ul>
+    <?php
+      // Инициализация массива
+      $leftMenu = [
+        ['link'=>'Домой', 'href'=>'index.php'],
+        ['link'=>'О нас', 'href'=>'about.php'],
+        ['link'=>'Контакты', 'href'=>'contact.php'],
+        ['link'=>'Таблица умножения', 'href'=>'table.php'],
+        ['link'=>'Калькулятор', 'href'=>'calc.php']
+      ];
+      echo "<ul>";
+      foreach ($leftMenu as $el) {
+        echo '<li><a href="'.$el['href'].'">'.$el['link'].'</a></li>';
+      }
+      echo "</ul>";
+    ?>
     <!-- Меню -->
     <!-- Навигация -->
   </div>
