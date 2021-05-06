@@ -1,3 +1,8 @@
+<?php
+  $cols = rand(1, 10);
+  $rows = rand(1, 10);
+?>
+
 <!DOCTYPE html>
 <html>
 
@@ -38,43 +43,24 @@
       <input type='submit' value='Создать' />
     </form>
     <!-- Таблица -->
-    <table border='1' width="200">
-      <tr>
-        <td>1</td>
-        <td>2</td>
-        <td>3</td>
-        <td>4</td>
-        <td>5</td>
-      </tr>
-      <tr>
-        <td>2</td>
-        <td>4</td>
-        <td>6</td>
-        <td>8</td>
-        <td>10</td>
-      </tr>
-      <tr>
-        <td>3</td>
-        <td>6</td>
-        <td>9</td>
-        <td>12</td>
-        <td>15</td>
-      </tr>
-      <tr>
-        <td>4</td>
-        <td>8</td>
-        <td>12</td>
-        <td>16</td>
-        <td>10</td>
-      </tr>
-      <tr>
-        <td>5</td>
-        <td>10</td>
-        <td>15</td>
-        <td>20</td>
-        <td>25</td>
-      </tr>
-    </table>
+    <?php
+      echo "<table border='1' width='200'>";
+      echo "<tr>";
+      echo "<th style='background:red;color:white;'><b>0</b></th>";
+      for ($c=0; $c < $rows; $c++) { 
+        echo "<th style='background:red;color:white;'><b>".($c+1)."</b></th>";
+      }
+      echo "</tr>";
+      for ($i=0; $i < $cols; $i++) { 
+        echo "<tr>";
+        echo "<th style='background:red;color:white;'><b>".($i+1)."</b></th>";
+        for ($j=0; $j < $rows; $j++) {
+          echo "<td>".($j+1)."*".($i+1)."</td>";
+        }
+        echo "</tr>";
+      }
+      echo '</table>';
+    ?>
     <!-- Таблица -->
     <!-- Область основного контента -->
   </div>
