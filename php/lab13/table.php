@@ -46,14 +46,14 @@
     <?php
       echo "<table border='1' width='200'>";
       echo "<tr>";
-      echo "<th style='background:red;color:white;'><b>0</b></th>";
+      echo "<th style='background:red;color:white;text-align: center;'><b>0</b></th>";
       for ($c=0; $c < $cols; $c++) { 
-        echo "<th style='background:red;color:white;'><b>".($c+1)."</b></th>";
+        echo "<th style='background:red;color:white;text-align: center;'><b>".($c+1)."</b></th>";
       }
       echo "</tr>";
       for ($i=0; $i < $rows; $i++) { 
         echo "<tr>";
-        echo "<th style='background:red;color:white;'><b>".($i+1)."</b></th>";
+        echo "<th style='background:red;color:white;text-align: center;'><b>".($i+1)."</b></th>";
         for ($j=0; $j < $cols; $j++) {
           echo "<td>".($j+1)."*".($i+1)."</td>";
         }
