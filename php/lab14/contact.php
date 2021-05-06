@@ -1,29 +1,8 @@
-<?php
-  function drawTable($cols, $rows, $color) {
-    echo "<table border='1' width='200'>";
-    echo "<tr>";
-    echo "<th style='background:".$color.";color:white;text-align: center;'><b>0</b></th>";
-    for ($c=0; $c < $cols; $c++) { 
-      echo "<th style='background:".$color.";color:white;text-align: center;'><b>".($c+1)."</b></th>";
-    }
-    echo "</tr>";
-    for ($i=0; $i < $rows; $i++) { 
-      echo "<tr>";
-      echo "<th style='background:".$color.";color:white;text-align: center;'><b>".($i+1)."</b></th>";
-      for ($j=0; $j < $cols; $j++) {
-        echo "<td>".($j+1)."*".($i+1)."</td>";
-      }
-      echo "</tr>";
-    }
-    echo '</table>';
-  }
-?>
-
 <!DOCTYPE html>
 <html>
 
 <head>
-  <title>Таблица умножения</title>
+  <title>Контакты</title>
   <meta charset="utf-8" />
   <link rel="stylesheet" href="style.css" />
 </head>
@@ -39,33 +18,37 @@
 
   <div id="content">
     <!-- Заголовок -->
-    <h1>Таблица умножения</h1>
+    <h1>Обратная связь</h1>
     <!-- Заголовок -->
     <!-- Область основного контента -->
-    <form action=''>
-      <label>Количество колонок: </label>
-      <br />
-      <input name='cols' type='text' value="" />
-      <br />
-      <label>Количество строк: </label>
-      <br />
-      <input name='rows' type='text' value="" />
-      <br />
-      <label>Цвет: </label>
-      <br />
-      <input name='color' type='text' value="" />
-      <br />
-      <br />
-      <input type='submit' value='Создать' />
-    </form>
-    <!-- Таблица -->
     <?php
-      $cols = rand(1, 10);
-      $rows = rand(1, 10);
-      $color = 'red';
-      drawTable($cols, $rows, $color);
+      $size = ini_get('post_max_size');
+      echo $size;
+      switch(substr($size, -1)) {
+        // The 'G' modifier is available
+        case 'K':
+            $size *= 1024;
+        case 'M':
+            $size *= pow(1024, 2);
+        case 'G':
+            $size *= pow(1024, 3);
+    }
     ?>
-    <!-- Таблица -->
+    <h3>Адрес</h3>
+    <p>123456 Москва, Малый Американский переулок 21</p>
+    <h3>Задайте вопрос</h3>
+    <form action='' method='post'>
+      <label>Тема письма: </label>
+      <br />
+      <input name='subject' type='text' size="50" />
+      <br />
+      <label>Содержание: </label>
+      <br />
+      <textarea name='body' cols="50" rows="10"></textarea>
+      <br />
+      <br />
+      <input type='submit' value='Отправить' />
+    </form>
     <!-- Область основного контента -->
   </div>
   <div id="nav">

@@ -1,29 +1,8 @@
-<?php
-  function drawTable($cols, $rows, $color) {
-    echo "<table border='1' width='200'>";
-    echo "<tr>";
-    echo "<th style='background:".$color.";color:white;text-align: center;'><b>0</b></th>";
-    for ($c=0; $c < $cols; $c++) { 
-      echo "<th style='background:".$color.";color:white;text-align: center;'><b>".($c+1)."</b></th>";
-    }
-    echo "</tr>";
-    for ($i=0; $i < $rows; $i++) { 
-      echo "<tr>";
-      echo "<th style='background:".$color.";color:white;text-align: center;'><b>".($i+1)."</b></th>";
-      for ($j=0; $j < $cols; $j++) {
-        echo "<td>".($j+1)."*".($i+1)."</td>";
-      }
-      echo "</tr>";
-    }
-    echo '</table>';
-  }
-?>
-
 <!DOCTYPE html>
 <html>
 
 <head>
-  <title>Таблица умножения</title>
+  <title>Калькулятор</title>
   <meta charset="utf-8" />
   <link rel="stylesheet" href="style.css" />
 </head>
@@ -39,33 +18,25 @@
 
   <div id="content">
     <!-- Заголовок -->
-    <h1>Таблица умножения</h1>
+    <h1>Калькулятор школьника</h1>
     <!-- Заголовок -->
     <!-- Область основного контента -->
     <form action=''>
-      <label>Количество колонок: </label>
+      <label>Число 1:</label>
       <br />
-      <input name='cols' type='text' value="" />
+      <input name='num1' type='text' />
       <br />
-      <label>Количество строк: </label>
+      <label>Оператор: </label>
       <br />
-      <input name='rows' type='text' value="" />
+      <input name='operator' type='text' />
       <br />
-      <label>Цвет: </label>
+      <label>Число 2: </label>
       <br />
-      <input name='color' type='text' value="" />
+      <input name='num2' type='text' />
       <br />
       <br />
-      <input type='submit' value='Создать' />
+      <input type='submit' value='Считать'>
     </form>
-    <!-- Таблица -->
-    <?php
-      $cols = rand(1, 10);
-      $rows = rand(1, 10);
-      $color = 'red';
-      drawTable($cols, $rows, $color);
-    ?>
-    <!-- Таблица -->
     <!-- Область основного контента -->
   </div>
   <div id="nav">
