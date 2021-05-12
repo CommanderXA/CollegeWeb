@@ -24,7 +24,7 @@ content-type: application/json
     "gender": "m",
     "email": "1jj@gmail.com",
     "password": "1234567890",
-    "role": "user"
+    "role": "admin"
 }
 
 ###
